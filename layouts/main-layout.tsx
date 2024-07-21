@@ -1,8 +1,15 @@
+import { MainFooter, MainHeader } from "@/components/layout";
 import { IChildrenProps } from "@/types";
 import React from "react";
 
 const MainLayout = ({ children }: IChildrenProps) => {
-  return <div>{children}</div>;
+  return (
+    <React.Fragment>
+      <MainHeader />
+      {children}
+      <MainFooter />
+    </React.Fragment>
+  );
 };
 
 export default MainLayout;

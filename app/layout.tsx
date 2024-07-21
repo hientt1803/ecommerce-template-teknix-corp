@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import MainLayout from "@/layouts/main-layout";
+import { StoreProvider } from "@/stores/store-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,14 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontSans.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <MainLayout>{children}</MainLayout>
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );

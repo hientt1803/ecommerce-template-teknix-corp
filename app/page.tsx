@@ -1,9 +1,12 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div>
-      HOME HERE
-    </div>
-  );
-}
+import { useRouter } from "next/navigation";
+import React from "react";
+
+const HomePage = () => {
+  const router = useRouter();
+  router.push("/shop");
+  return <></>;
+};
+
+export default HomePage;
