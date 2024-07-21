@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
@@ -11,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+// import { MoonStar, SunMedium } from "lucide-react";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -25,6 +25,9 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {/* <Toggle aria-label="Toggle italic">
+          {theme == "light" ? <SunMedium /> : <MoonStar />}
+        </Toggle> */}
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>

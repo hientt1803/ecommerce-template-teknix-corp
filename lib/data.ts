@@ -1,4 +1,4 @@
-export const DUMMY_DATA = [
+export const PRODUCT_SAMPLE_DATA = [
   {
     id: 1,
     title: "Essence Mascara Lash Princess",
@@ -1770,4 +1770,27 @@ export const DUMMY_DATA = [
     thumbnail:
       "https://cdn.dummyjson.com/products/images/groceries/Kiwi/thumbnail.png",
   },
+];
+
+export const CATEGORIES_SAMPLE_DATA = [
+  "beauty",
+  "fragrances",
+  "furniture",
+  "groceries",
+];
+
+export const BRAND_SAMPLE_DATA = ["Essence"];
+
+export const TAG_SAMPLE_DATA = [
+  "bathroom",
+  "office chairs",
+  "bedside tables",
+  "beds",
+  "perfumes",
+  "fragrances",
+  "nail polish",
+  "mascara",
+  "eyeshadow",
+  "face powder",
+  "beauty",
 ];
