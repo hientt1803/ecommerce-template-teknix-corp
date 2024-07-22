@@ -1,56 +1,41 @@
-import Image from "next/image";
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { IProduct } from "@/types";
+import Image from "next/image";
+import { useMemo } from "react";
 
 export const MainCard = ({ product }: { product: IProduct }) => {
+  /* The `useMemo` hook is being used to memoize the calculation of the `priceAfterDiscount` value in
+  the `MainCard` component. */
+  const priceAfterDiscount = useMemo(() => {
+    const resultAfterDiscount =
+      product.price * (product.discountPercentage / 100);
+    const result = product.price - resultAfterDiscount;
+
+    return result.toFixed(2).toString();
+  }, [product.price, product.discountPercentage]);
+
   return (
-    <Card className="overflow-hidden">
-      <CardHeader>
-        <CardTitle>{product.title}</CardTitle>
-        <CardDescription>{product.description}</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Card
+      className="group overflow-hidden transition-all border-none shadow-none hover:shadow-xl hover:translate-y-[-7px]"
+      key={product.id}
+    >
+      <CardContent className="bg-[#f5f5f5]">
         <Image
           alt="Product image"
-          className="aspect-square w-full rounded-md object-cover"
-          height="300"
+          className="aspect-square w-full rounded-md object-cover transition-transform group-hover:scale-[1.1]"
+          height="200"
           src={product.thumbnail}
-          width="300"
+          width="200"
+          loading="lazy"
         />
-        <div className="grid grid-cols-3 gap-2">
-          <button>
-            <Image
-              alt="Product image"
-              className="aspect-square w-full rounded-md object-cover"
-              height="84"
-              src={product.thumbnail}
-              width="84"
-            />
-          </button>
-          <button>
-            <Image
-              alt="Product image"
-              className="aspect-square w-full rounded-md object-cover"
-              height="84"
-              src={product.thumbnail}
-              width="84"
-            />
-          </button>
-        </div>
         <div className="grid gap-2">
-          {/* <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque harum
-            molestiae rerum accusantium, ipsum in nostrum incidunt nihil debitis
-            et temporibus. Id fugiat ipsam iure quisquam, dolor mollitia
-            delectus veniam.
-          </p> */}
+          <p className="line-clamp-1 text-sm">{product.title}</p>
+          <div className="flex gap-3">
+            <span className="line-through text-neutral-600">
+              {product.price}$
+            </span>
+            <span className="text-red-600">{priceAfterDiscount}$</span>
+          </div>
         </div>
       </CardContent>
     </Card>
