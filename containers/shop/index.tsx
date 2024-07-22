@@ -1,5 +1,6 @@
 // import { RootState } from "@/stores/store";
 // import { useDispatch, useSelector } from "react-redux";
+import { ShopFilter } from "./components/filter";
 import { ListProduct } from "./components/list-product";
 
 export const ShopContainer = () => {
@@ -8,7 +9,12 @@ export const ShopContainer = () => {
 
   return (
     <div className="container">
-     <ListProduct />
+      <div className="mb-10">
+        <ShopFilter />
+      </div>
+      <div>
+        <ListProduct />
+      </div>
     </div>
   );
 };
