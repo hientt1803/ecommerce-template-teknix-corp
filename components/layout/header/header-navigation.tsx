@@ -17,10 +17,10 @@ import { CATEGORIES_SAMPLE_DATA } from "@/lib/data";
 
 const CATEGORIES_NAVIGATE = CATEGORIES_SAMPLE_DATA;
 
-export const HeaderNavigation = () => {
+export const HeaderNavigation = ({ classname }: { classname?: string }) => {
   return (
     <NavigationMenu>
-      <NavigationMenuList>
+      <NavigationMenuList className={classname}>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -106,7 +106,9 @@ const ListItem = ({
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none uppercase text-underline-animation">{title}</div>
+          <div className="text-sm font-medium leading-none uppercase text-underline-animation">
+            {title}
+          </div>
         </a>
       </NavigationMenuLink>
     </li>

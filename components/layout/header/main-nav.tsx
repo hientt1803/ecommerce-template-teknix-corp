@@ -1,16 +1,14 @@
-import React from "react";
-import { HeaderNavigation } from "./header-navigation";
-import { SearchIcon, ShoppingCart } from "lucide-react";
-import { ThemeToggle } from "@/components/provider";
 import { HeaderCommand } from "@/components/command";
+import { ThemeToggle } from "@/components/provider";
+import { ShoppingCart } from "lucide-react";
+import { HeaderNavigation } from "./header-navigation";
 
 export const MainNav = () => {
   return (
-    <div className="hidden md:flex gap-8 items-center">
-      <HeaderCommand />
+    <div className="hidden md:flex gap-5 items-center">
       <HeaderNavigation />
-      <SearchIcon />
-      <ShoppingCart />
+      <HeaderCommand />
+      <ShoppingCart className="cursor-pointer" />
       <ThemeToggle />
     </div>
   );
