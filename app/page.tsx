@@ -8,7 +8,7 @@ const HomePage = () => {
 
   useEffect(() => {
     router.push("/shop");
-  }, []);
+  }, [router]);
 
   return <></>;
 };
