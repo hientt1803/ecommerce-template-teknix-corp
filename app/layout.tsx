@@ -1,13 +1,13 @@
 import "@/styles/global.scss";
 
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as Cardo } from "next/font/google";
 
 import { ThemeProvider } from "@/components/provider/theme-provider";
 import MainLayout from "@/layouts/main-layout";
 import { StoreProvider } from "@/stores/store-provider";
 
-const fontSans = FontSans({
+const fontSans = Cardo({
   subsets: ["latin"],
   variable: "--font-sans",
 });

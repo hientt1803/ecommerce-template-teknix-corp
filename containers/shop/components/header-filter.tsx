@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { filteredListProduct } from "@/stores/feature/products-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
-import { ListFilterIcon, SearchIcon } from "lucide-react";
+import { ListFilterIcon, Search, SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MobileShopFileter } from "./mobile-shop-filter";
@@ -121,14 +121,14 @@ export const ShopHeaderFilter = () => {
       <div>
         <SearchIcon className="md:hidden w-10 h-10" />
         <div className="hidden md:flex gap-3 w-full max-w-sm items-center space-x-2">
-          <Input
-            type="text"
-            placeholder="Search something...."
-            onChange={handleOnChangeSearch}
-          />
-          <Button type="submit">
-            <ListFilterIcon />
-          </Button>
+          <div className="relative">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search"
+              className="pl-8"
+              onChange={handleOnChangeSearch}
+            />
+          </div>
         </div>
       </div>
     </div>

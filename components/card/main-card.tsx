@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { IProduct } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo } from "react";
 
 export const MainCard = ({ product }: { product: IProduct }) => {
@@ -20,14 +21,16 @@ export const MainCard = ({ product }: { product: IProduct }) => {
       key={product.id}
     >
       <CardContent className="bg-[#f6f6f6]">
-        <Image
-          alt="Product image"
-          className="aspect-square w-full rounded-md object-cover transition-transform group-hover:scale-[1.1]"
-          height="200"
-          src={product.thumbnail}
-          width="200"
-          loading="lazy"
-        />
+        <Link href={`/shop/${product.id}`}>
+          <Image
+            alt="Product image"
+            className="aspect-square w-full rounded-md object-cover transition-transform group-hover:scale-[1.1]"
+            height="200"
+            src={product.thumbnail}
+            width="200"
+            loading="lazy"
+          />
+        </Link>
         <div className="grid gap-2">
           <p className="line-clamp-1 text-sm">{product.title}</p>
           <div className="flex gap-3">

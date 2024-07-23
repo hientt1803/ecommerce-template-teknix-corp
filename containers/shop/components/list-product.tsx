@@ -49,8 +49,6 @@ export const ListProduct = () => {
             );
           });
         });
-
-        console.log(productFiltered);
       }
 
       dispath(filteredListProduct(productFiltered));
