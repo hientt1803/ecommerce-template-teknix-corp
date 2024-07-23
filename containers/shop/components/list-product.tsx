@@ -1,11 +1,61 @@
+"use client";
+
 import { MainCard } from "@/components/card/main-card";
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
-import { IProduct } from "@/types";
-import React from "react";
+import { RootState } from "@/stores/store";
+import { useDispatch, useSelector } from "react-redux";
 import { ShopFilter } from "./filter";
 import { ShopHeaderFilter } from "./header-filter";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { filteredListProduct } from "@/stores/feature/products-slice";
 export const ListProduct = () => {
-  const listProduct: IProduct[] = PRODUCT_SAMPLE_DATA;
+  // hook
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParam = useSearchParams();
+
+  // redux
+  const productList = useSelector(
+    (state: RootState) => state.productListSlice.data
+  );
+  const listFilteredProduct = useSelector(
+    (state: RootState) => state.productListSlice.searchedProductList
+  );
+  const dispath = useDispatch();
+
+  useEffect(() => {
+    let productFiltered = [];
+    if (searchParam !== null) {
+      if (searchParam?.get("sort-by-categories") !== null) {
+        productFiltered = productList.filter((product) => {
+          return product.category
+            .toLowerCase()
+            .includes(
+              String(
+                searchParam
+                  ?.get("sort-by-categories")
+                  ?.toLocaleLowerCase()
+                  .toString()
+              )
+            );
+        });
+      } else {
+        productFiltered = productList.filter((product) => {
+          return product.tags.filter((tag) => {
+            tag.includes(
+              String(
+                searchParam?.get("sort-by-tags")?.toLocaleLowerCase().toString()
+              )
+            );
+          });
+        });
+
+        console.log(productFiltered);
+      }
+
+      dispath(filteredListProduct(productFiltered));
+    }
+  }, [searchParam]);
 
   return (
     <div>
@@ -17,9 +67,19 @@ export const ListProduct = () => {
         <div className="flex-1">
           <ShopHeaderFilter />
           <div className="responsive-grid-column mt-10">
-            {listProduct.map((product) => (
-              <MainCard key={product.id} product={product} />
-            ))}
+            {listFilteredProduct.length !== 0 ? (
+              <>
+                {listFilteredProduct.map((product) => (
+                  <MainCard key={product.id} product={product} />
+                ))}
+              </>
+            ) : (
+              <>
+                {productList.map((product) => (
+                  <MainCard key={product.id} product={product} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

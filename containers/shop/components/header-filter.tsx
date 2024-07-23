@@ -1,36 +1,91 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-// import { hideFilter, showFilter } from "@/stores/feature/global";
-// import { RootState } from "@/stores/store";
+import { filteredListProduct } from "@/stores/feature/products-slice";
+import { RootState } from "@/stores/store";
+import { IProduct } from "@/types";
 import { ListFilterIcon, SearchIcon } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MobileShopFileter } from "./mobile-shop-filter";
-// import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export const ShopHeaderFilter = () => {
-  //   const showFilterState = useSelector(
-  //     (state: RootState) => state.shopFilter.isShow
-  //   );
-  //   const dispatch = useDispatch();
+  // hook
+  const router = useRouter();
 
-  //   const handleShowFilter = () => {
-  //     if (showFilterState == true) {
-  //       dispatch(hideFilter());
-  //     } else dispatch(showFilter());
-  //   };
+  // redux
+  const productList = useSelector(
+    (state: RootState) => state.productListSlice.data
+  );
+  const dispatch = useDispatch();
+
+  // state
+  const [searchText, setSearchText] = useState("");
+  const [sortOption, setSortOption] = useState("");
+
+  const sortProducts = (products: IProduct[], option: string) => {
+    router.push(`shop/?sort-by=${option}`);
+
+    switch (option) {
+      case "alphabetical-asc":
+        return [...products].sort((a, b) => a.title.localeCompare(b.title));
+      case "alphabetical-desc":
+        return [...products].sort((a, b) => b.title.localeCompare(a.title));
+      case "price-asc":
+        return [...products].sort((a, b) => a.price - b.price);
+      case "price-desc":
+        return [...products].sort((a, b) => b.price - a.price);
+      case "date-asc":
+        return [...products].sort(
+          (a, b) => Number(a.meta.createdAt) - Number(b.meta.createdAt)
+        );
+      case "date-desc":
+        return [...products].sort(
+          (a, b) => Number(b.meta.createdAt) - Number(a.meta.createdAt)
+        );
+      default:
+        return products;
+    }
+  };
+
+  useEffect(() => {
+    const savedSortOption = localStorage.getItem("sortOption");
+    if (savedSortOption) {
+      setSortOption(savedSortOption);
+    }
+  }, []);
+
+  useEffect(() => {
+    let filteredProducts = productList.filter((product) =>
+      product.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    filteredProducts = sortProducts(filteredProducts, sortOption);
+
+    dispatch(filteredListProduct(filteredProducts));
+  }, [searchText, sortOption, productList]);
+
+  const handleSort = (option: string) => {
+    setSortOption(option);
+    localStorage.setItem("sortOption", option);
+  };
+
+  const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
 
   return (
     <div className="flex justify-between">
       <div className="flex gap-3 items-center">
-        {/* <Button variant={"outline"} onClick={handleShowFilter}>
-          Show Filter
-        </Button> */}
         <div className="block md:hidden">
           <MobileShopFileter />
         </div>
@@ -41,12 +96,24 @@ export const ShopHeaderFilter = () => {
           <DropdownMenuContent className="w-60">
             <DropdownMenuGroup>
               <DropdownMenuItem>Best selling</DropdownMenuItem>
-              <DropdownMenuItem>Aphabetically, A-Z</DropdownMenuItem>
-              <DropdownMenuItem>Aphabetically, Z-A</DropdownMenuItem>
-              <DropdownMenuItem>Price, low to high</DropdownMenuItem>
-              <DropdownMenuItem>Price, high to low</DropdownMenuItem>
-              <DropdownMenuItem>Date, old to new</DropdownMenuItem>
-              <DropdownMenuItem>Date, new to old</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("alphabetical-asc")}>
+                Alphabetically, A-Z
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("alphabetical-desc")}>
+                Alphabetically, Z-A
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("price-asc")}>
+                Price, low to high
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("price-desc")}>
+                Price, high to low
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("date-asc")}>
+                Date, old to new
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort("date-desc")}>
+                Date, new to old
+              </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -54,9 +121,13 @@ export const ShopHeaderFilter = () => {
       <div>
         <SearchIcon className="md:hidden w-10 h-10" />
         <div className="hidden md:flex gap-3 w-full max-w-sm items-center space-x-2">
-          <Input type="text" placeholder="Search something...." />
+          <Input
+            type="text"
+            placeholder="Search something...."
+            onChange={handleOnChangeSearch}
+          />
           <Button type="submit">
-            <ListFilterIcon /> 
+            <ListFilterIcon />
           </Button>
         </div>
       </div>
