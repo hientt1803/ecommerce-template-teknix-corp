@@ -1,12 +1,12 @@
 "use client";
 
 import { GroupInputQuantity } from "@/components/input/group-input-quantity";
-import RatingDetail from "@/components/rating/rating";
+import RatingStar from "@/components/rating/rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export const ProductInformation = () => {
   // Hook
@@ -16,13 +16,6 @@ export const ProductInformation = () => {
   const detailProduct = PRODUCT_SAMPLE_DATA.find(
     (product) => product.id == Number(id)
   );
-
-  // state
-  // const [mounted, setMounted] = useState(false);
-
-  // useEffect(() => {
-  //   setMounted(true)
-  // }, [])
 
   const priceAfterDiscount = useMemo(() => {
     if (!detailProduct) return;
@@ -45,7 +38,7 @@ export const ProductInformation = () => {
           {detailProduct?.price}
         </span>
       </div>
-      {detailProduct?.rating && <RatingDetail />}
+      {detailProduct?.rating && <RatingStar rating={detailProduct.rating} />}
       <div className="flex justify-between font-normal">
         <div>
           Brand: <Badge variant="default">{detailProduct?.brand}</Badge>

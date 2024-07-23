@@ -12,11 +12,11 @@ import { Input } from "@/components/ui/input";
 import { filteredListProduct } from "@/stores/feature/products-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
-import { ListFilterIcon, Search, SearchIcon } from "lucide-react";
+import { Search, SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MobileShopFileter } from "./mobile-shop-filter";
-import { useRouter } from "next/navigation";
 
 export const ShopHeaderFilter = () => {
   // hook

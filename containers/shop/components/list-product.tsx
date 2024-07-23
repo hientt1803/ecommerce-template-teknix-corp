@@ -1,17 +1,15 @@
 "use client";
 
 import { MainCard } from "@/components/card/main-card";
+import { filteredListProduct } from "@/stores/feature/products-slice";
 import { RootState } from "@/stores/store";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShopFilter } from "./filter";
 import { ShopHeaderFilter } from "./header-filter";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { filteredListProduct } from "@/stores/feature/products-slice";
 export const ListProduct = () => {
   // hook
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParam = useSearchParams();
 
   // redux
