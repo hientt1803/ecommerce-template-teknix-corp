@@ -70,10 +70,8 @@ export const AccordinFilterItem = (props: IShopFilter) => {
             ))}
           </div>
           <div>{props.children}</div>
-
-          <div className="h-6" />
           <div
-            className="underline text-sm mt-8 pt-8 cursor-pointer"
+            className="underline text-sm mt-4 cursor-pointer"
             onClick={() => setIsShow(!isShow)}
           >
             {isShow ? "Collapse" : "Show more"}
