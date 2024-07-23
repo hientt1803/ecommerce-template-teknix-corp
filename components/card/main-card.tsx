@@ -19,7 +19,7 @@ export const MainCard = ({ product }: { product: IProduct }) => {
       className="group overflow-hidden transition-all border-none shadow-none hover:shadow-xl hover:translate-y-[-7px]"
       key={product.id}
     >
-      <CardContent className="bg-[#f5f5f5]">
+      <CardContent className="bg-[#f6f6f6]">
         <Image
           alt="Product image"
           className="aspect-square w-full rounded-md object-cover transition-transform group-hover:scale-[1.1]"
@@ -31,10 +31,10 @@ export const MainCard = ({ product }: { product: IProduct }) => {
         <div className="grid gap-2">
           <p className="line-clamp-1 text-sm">{product.title}</p>
           <div className="flex gap-3">
-            <span className="line-through text-neutral-600">
+            <span className="line-through text-neutral-500 text-sm align-text-bottom">
               {product.price}$
             </span>
-            <span className="text-red-600">{priceAfterDiscount}$</span>
+            <span className="text-black">{priceAfterDiscount}$</span>
           </div>
         </div>
       </CardContent>
