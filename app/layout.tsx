@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/components/provider/theme-provider";
 import MainLayout from "@/layouts/main-layout";
 import { StoreProvider } from "@/stores/store-provider";
+import { Suspense } from "react";
+import LoadingGlobal from "@/components/loading/global";
 
 const fontSans = Cardo({
   subsets: ["latin"],
@@ -28,15 +30,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={fontSans.className}>
         <StoreProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <MainLayout>{children}</MainLayout>
-            <ToastContainer />
-          </ThemeProvider>
+          <Suspense fallback={<LoadingGlobal />}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <MainLayout>{children}</MainLayout>
+              <ToastContainer />
+            </ThemeProvider>
+          </Suspense>
         </StoreProvider>
       </body>
     </html>

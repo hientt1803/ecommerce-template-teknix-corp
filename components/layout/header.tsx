@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { MainNav } from "./header/main-nav";
-import MobileNav from "./header/mobile-nax";
+import dynamic from "next/dynamic";
+
+const MobileNav = dynamic(() =>
+  import("./header/mobile-nax").then((mod) => mod.default)
+);
 
 export const MainHeader = () => {
   return (

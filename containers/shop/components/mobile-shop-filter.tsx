@@ -12,7 +12,12 @@ import {
 import { MenuIcon } from "lucide-react";
 import React, { useState } from "react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { ShopFilter } from "./filter";
+
+import dynamic from "next/dynamic";
+
+const ShopFilter = dynamic(() =>
+  import("./filter").then((mod) => mod.ShopFilter)
+);
 
 export const MobileShopFileter = () => {
   const [open, setOpen] = useState(false);
@@ -34,7 +39,7 @@ export const MobileShopFileter = () => {
       </SheetTrigger>
 
       <SheetContent side="left">
-        <div className="flex flex-col gap-10">
+        <div className="w-full flex flex-col gap-10">
           <div>
             <h1>FILTER BY </h1>
           </div>

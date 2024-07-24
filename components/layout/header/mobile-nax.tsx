@@ -15,6 +15,7 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { HeaderCommand } from "@/components/command";
 import { HeaderNavigation } from "./header-navigation";
 import { ThemeToggle } from "@/components/provider";
+import Link from "next/link";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -46,7 +47,9 @@ export default function MobileNav() {
             <HeaderCommand />
           </div>
           <div className="flex gap-3 mt-10 ml-[1.3rem]">
-            <ShoppingCart className="cursor-pointer" />
+            <Link href={"/cart"} onClick={() => setOpen(false)}>
+              <ShoppingCart className="cursor-pointer" />
+            </Link>
             <ThemeToggle />
           </div>
         </div>

@@ -14,7 +14,7 @@ export const RelativeProduct = () => {
 
   // redux
   const productList = useSelector(
-    (state: RootState) => state.productListSlice.data
+    (state: RootState) => state.productList.data
   );
 
   // state
