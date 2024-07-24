@@ -53,7 +53,6 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
         <Label htmlFor="review-content">What you think</Label>
         <Textarea
           id="review-content"
-          defaultValue=""
           value={value}
           onChange={handleOnChange}
         />

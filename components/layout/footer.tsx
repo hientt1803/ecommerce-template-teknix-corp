@@ -8,7 +8,7 @@ const ITEMS = ["WOMEN", "MEN", "SHOES", "WATCHES"];
 export const MainFooter = () => {
   return (
     <div className="min-w-full bg-neutral-900 dark:bg-neutral-800 text-white mt-10">
-      <div className="container py-5">
+      <div className="container py-12">
         <div className="flex flex-col md:flex-row justify-between flex-wrap">
           <div className="flex flex-row justify-center md:justify-start gap-10 flex-wrap">
             <StackInfor title="categories" items={ITEMS} />
@@ -30,9 +30,9 @@ export const MainFooter = () => {
               <Input
                 type="email"
                 placeholder="Email"
-                className="border-0 border-b-2 mb-2 rounded-none focus::border-0 focus::border-b-2"
+                className="border-0 border-b-2 mb-2 rounded-none focus::border-0 focus::border-b-2 focus:outline-none"
               />
-              <Button className="font-semibold px-5 mt-3 dark:bg-neutral-900 dark:hover:bg-black" variant={"secondary"}>
+              <Button className="font-semibold px-5 mt-3 bg-neutral-700" variant={"default"}>
                 SUBSCIBE
               </Button>
             </StackInfor>

@@ -43,3 +43,7 @@ export interface IProduct {
   images: string[];
   thumbnail: string;
 }
+
+export interface ICart extends IProduct {
+  cartQuantity: number;
+}

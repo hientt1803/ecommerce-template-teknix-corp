@@ -1,7 +1,9 @@
 import "@/styles/global.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 import type { Metadata } from "next";
 import { Inter as Cardo } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "@/components/provider/theme-provider";
 import MainLayout from "@/layouts/main-layout";
@@ -33,6 +35,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <MainLayout>{children}</MainLayout>
+            <ToastContainer />
           </ThemeProvider>
         </StoreProvider>
       </body>
