@@ -17,7 +17,7 @@ const initialState: ProductInitial = {
 };
 
 export const productListSlice = createSlice({
-  name: "counter",
+  name: "productList",
   initialState,
   reducers: {
     listProduct: (state) => {

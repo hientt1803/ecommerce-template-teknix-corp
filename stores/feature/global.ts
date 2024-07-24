@@ -21,7 +21,5 @@ export const shopFilterSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { showFilter, hideFilter } = shopFilterSlice.actions;
-
 export default shopFilterSlice.reducer;

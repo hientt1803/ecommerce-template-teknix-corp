@@ -1,23 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-export const GroupInputQuantity = () => {
-  const [quantity, setQuantity] = useState<number>(1);
+interface IGroupInputQuantity {
+  quantity: number;
+  setQuantity: (newQuantity: number) => void;
+}
 
+export const GroupInputQuantity = ({
+  quantity,
+  setQuantity,
+}: IGroupInputQuantity) => {
   const handleOnChangeQuantity = (action: string) => {
     switch (action) {
       case "incr":
-        setQuantity((prev) => prev + 1);
+        setQuantity(quantity + 1);
         break;
 
       case "descr":
-        if (quantity < 2) {
-          setQuantity(1);
-        } else {
-          setQuantity((prev) => prev - 1);
+        if (quantity > 1) {
+          setQuantity(quantity - 1);
         }
         break;
 
@@ -26,8 +30,13 @@ export const GroupInputQuantity = () => {
     }
   };
 
-  const handleOnChangeQuantityInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(e.target.value));
+  const handleOnChangeQuantityInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newQuantity = Number(e.target.value);
+    if (newQuantity > 0) {
+      setQuantity(newQuantity);
+    }
   };
 
   return (

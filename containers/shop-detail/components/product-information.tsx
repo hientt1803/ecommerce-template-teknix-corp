@@ -5,8 +5,12 @@ import RatingStar from "@/components/rating/rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
+import { addItemToCart } from "@/stores/feature/cart-slice";
+import { ICart } from "@/types";
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { toastInfo, toastSuccess } from "../../../utils/toast";
 
 export const ProductInformation = () => {
   // Hook
@@ -16,16 +20,49 @@ export const ProductInformation = () => {
   const detailProduct = PRODUCT_SAMPLE_DATA.find(
     (product) => product.id == Number(id)
   );
+  const dispatch = useDispatch();
+
+  // state
+  const [quantity, setQuantity] = useState<number>(1);
 
   const priceAfterDiscount = useMemo(() => {
-    if (!detailProduct) return;
+    if (!detailProduct) return "0.00";
 
     const resultAfterDiscount =
-      detailProduct?.price * (detailProduct?.discountPercentage / 100);
-    const result = detailProduct?.price - resultAfterDiscount;
+      detailProduct.price * (detailProduct.discountPercentage / 100);
+    const result = detailProduct.price - resultAfterDiscount;
 
     return result.toFixed(2).toString();
-  }, [detailProduct?.price, detailProduct?.discountPercentage]);
+  }, [detailProduct]);
+
+  const handleAddCart = () => {
+    if (!detailProduct) return;
+
+    let data: ICart[] = [];
+    const localData = localStorage.getItem("cartDetail");
+    if (localData !== null) {
+      data = JSON.parse(localData);
+    }
+
+    const existingProduct = data.find((item) => item.id === detailProduct.id);
+    if (existingProduct) {
+      data = data.map((item) => {
+        if (item.id === detailProduct.id) {
+          quantity > 1
+            ? (item.cartQuantity += quantity)
+            : (item.cartQuantity += 1);
+        }
+        return item;
+      });
+      localStorage.setItem("cartDetail", JSON.stringify(data));
+      toastInfo("Item quantity has been increased!");
+    } else {
+      data.push({ ...detailProduct, cartQuantity: 1 });
+      localStorage.setItem("cartDetail", JSON.stringify(data));
+      dispatch(addItemToCart({ ...detailProduct, cartQuantity: 1 }));
+      toastSuccess("Add item to cart successfully!");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -65,7 +102,10 @@ export const ProductInformation = () => {
       </div>
 
       <div className="text-5xl my-5">
-        <GroupInputQuantity />
+        <GroupInputQuantity
+          quantity={quantity}
+          setQuantity={(quantity) => setQuantity(quantity)}
+        />
       </div>
 
       <div className="flex justify-between flex-col font-normal">
@@ -77,7 +117,11 @@ export const ProductInformation = () => {
       </div>
 
       <div className="flex flex-col gap-2 mt-3">
-        <Button variant={"outline"} className="rounded-sm">
+        <Button
+          variant={"outline"}
+          className="rounded-sm"
+          onClick={handleAddCart}
+        >
           ADD TO CART
         </Button>
         <Button variant={"default"} className="rounded-sm">
