@@ -23,6 +23,9 @@ export const productListSlice = createSlice({
     listProduct: (state) => {
       state.data = fetchData();
     },
+    setListProduct: (state,action)=>{
+      state.data = action.payload
+    },
     filteredListProduct: (state, action) => {
       state.searchedProductList = action.payload;
     },

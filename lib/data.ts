@@ -1790,10 +1790,8 @@ export const TAG_SAMPLE_DATA = [
   "bedside tables",
   "beds",
   "perfumes",
-  "fragrances",
   "nail polish",
   "mascara",
   "eyeshadow",
   "face powder",
-  "beauty",
 ];

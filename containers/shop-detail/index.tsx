@@ -7,6 +7,7 @@ import { RelativeProduct } from "./components/relative-product";
 export const ShopDetailContainer = () => {
   return (
     <div className="container">
+      {/* <PageBreadcrumb segment="Shop" /> */}
       <div className="inline-grid relative">
         {/* Detail grid */}
         <div className="detail-grid-layout">

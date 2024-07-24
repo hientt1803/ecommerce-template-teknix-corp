@@ -15,18 +15,21 @@ const SIZE_SAMPLE_DATA_2 = [
 export const ShopFilter = () => {
   return (
     <>
-      <AccordinFilterItem title="Size" data={SIZE_SAMPLE_DATA} />
+      {/* <AccordinFilterItem title="Size" filterData={SIZE_SAMPLE_DATA} /> */}
+
+      {/* <AccordinFilterItem
+        title="Fabric Composition"
+        filterData={SIZE_SAMPLE_DATA_2}
+      /> */}
 
       <AccordinFilterItem
-        title="Fabric Composition"
-        data={SIZE_SAMPLE_DATA_2}
+        title="Categories"
+        filterData={CATEGORIES_SAMPLE_DATA}
       />
 
-      <AccordinFilterItem title="Categories" data={CATEGORIES_SAMPLE_DATA} />
+      <AccordinFilterItem title="Tags" filterData={TAG_SAMPLE_DATA} />
 
-      <AccordinFilterItem title="Tags" data={TAG_SAMPLE_DATA} />
-
-      <AccordinFilterItem title="Price range">PRICE RANGE</AccordinFilterItem>
+      <AccordinFilterItem title="Price range" searchPrice />
     </>
   );
 };
