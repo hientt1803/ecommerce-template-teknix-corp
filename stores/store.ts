@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import counterReducer from "./slice";
+import cartReducer from "./feature/cart-slice";
 import filterReducer from "./feature/global-slice";
 import productReducer from "./feature/products-slice";
-import cartReducer from "./feature/cart-slice";
+import authReducer from "./feature/auth-slice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     globalState: filterReducer,
     productList: productReducer,
     cart: cartReducer,
+    auth: authReducer,
   },
 });
 

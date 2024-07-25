@@ -1,10 +1,23 @@
-import React from "react";
+"use client";
 
-const LoadingGlobal = () => {
+import React from "react";
+import { Spinner } from "../ui/spinner";
+
+interface ILoading {
+  open?: boolean;
+}
+
+const LoadingGlobal = (props: ILoading) => {
+  const { open = false } = props;
+
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 min-w-[100vw] min-h-screen flex justify-center items-center bg-neutral-800 opacity-10">
-      <div className="transition-all animate-spin" />
-    </div>
+    <>
+      {open && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 min-w-[100vw] z min-h-screen flex justify-center items-center bg-neutral-800 opacity-90 z-50">
+          <Spinner size="large" className="text-white" />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import RatingDetail from "@/components/rating/rating";
+import RatingStar from "@/components/rating/rating";
 import {
   Card,
   CardContent,
@@ -10,19 +10,16 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { RootState } from "@/stores/store";
 import { BellIcon, StarIcon } from "lucide-react";
+import { useSelector } from "react-redux";
 import { WriteComment } from "./write-comment";
-import RatingStar from "@/components/rating/rating";
-import { useParams } from "next/navigation";
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
 
 export const LeftSide = () => {
-  const { id } = useParams();
-
-  const detailProduct = PRODUCT_SAMPLE_DATA.find(
-    (product) => product.id == Number(id)
+  const detailProduct = useSelector(
+    (state: RootState) => state.productList.activeProduct
   );
-
+  
   return (
     <Card
       className={cn(
@@ -31,7 +28,7 @@ export const LeftSide = () => {
     >
       <CardHeader>
         <CardTitle className="text-3xl">Customer Review</CardTitle>
-        <RatingStar rating={5} disable={true} />
+        <RatingStar rating={5} readOnly />
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="flex items-center gap-3">

@@ -6,6 +6,7 @@ interface IRatingStar {
   rating: number;
   setRating?: any;
   disable?: boolean;
+  readOnly?: boolean;
 }
 
 const RatingStar = ({
@@ -13,6 +14,7 @@ const RatingStar = ({
   rating,
   setRating,
   disable = false,
+  readOnly = false,
 }: IRatingStar) => {
   return (
     <ReactRating
@@ -20,6 +22,7 @@ const RatingStar = ({
       value={rating}
       onChange={setRating}
       isDisabled={disable}
+      readOnly={readOnly}
     />
   );
 };

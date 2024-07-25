@@ -1,19 +1,16 @@
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
 import { IProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ProductInitial {
   data: IProduct[];
   searchedProductList: IProduct[];
+  activeProduct: IProduct | null;
 }
 
-const fetchData = (): IProduct[] => {
-  return PRODUCT_SAMPLE_DATA;
-};
-
 const initialState: ProductInitial = {
-  data: fetchData(),
+  data: [],
   searchedProductList: [],
+  activeProduct: null,
 };
 
 export const productListSlice = createSlice({
@@ -21,18 +18,29 @@ export const productListSlice = createSlice({
   initialState,
   reducers: {
     listProduct: (state) => {
-      state.data = fetchData();
+      state.data;
     },
-    setListProduct: (state,action)=>{
-      state.data = action.payload
+    setListProduct: (state, action) => {
+      state.data = action.payload;
     },
     filteredListProduct: (state, action) => {
       state.searchedProductList = action.payload;
     },
+    activeProduct: (state) => {
+      state.activeProduct;
+    },
+    setActiveProduct: (state, action) => {
+      state.activeProduct = action.payload;
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { listProduct, filteredListProduct } = productListSlice.actions;
+export const {
+  listProduct,
+  filteredListProduct,
+  setListProduct,
+  activeProduct,
+  setActiveProduct,
+} = productListSlice.actions;
 
 export default productListSlice.reducer;
