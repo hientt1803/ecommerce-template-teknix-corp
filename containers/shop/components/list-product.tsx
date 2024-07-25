@@ -24,7 +24,9 @@ export const ListProduct = () => {
   const [gridColumnShow, setGridColumnShow] = useState<boolean>(true);
 
   useEffect(() => {
-    getProductApi();
+    if (productList.length === 0) {
+      getProductApi();
+    }
   }, []);
 
   useEffect(() => {
