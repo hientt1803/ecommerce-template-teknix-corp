@@ -12,6 +12,7 @@ import {
 } from "@/stores/feature/cart-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
+import { toastSuccess } from "@/utils";
 import { Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,7 @@ export const CartBody = () => {
   useEffect(() => {
     if (dataFromLocalStorage) {
       const data = JSON.parse(dataFromLocalStorage);
-      
+
       dispatch(clearCart());
       data?.forEach((item: IProduct) => {
         dispatch(addItemToCart(item));
@@ -52,6 +53,8 @@ export const CartBody = () => {
         id: cartId,
       })
     );
+
+    toastSuccess("Delete successfully!");
   };
 
   return (

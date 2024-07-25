@@ -16,7 +16,7 @@ let accessToken = getCookie(TLocalStore.ACCESS_TOKEN);
 
 /* Creating a new axios client with the baseURL, headers, and paramsSerializer. */
 export const axiosClient = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer " + accessToken,
@@ -42,7 +42,7 @@ axiosClient.interceptors.response.use(
 
 /* Creating a new axios client with the baseURL, headers, and paramsSerializer. */
 export const axiosClientFormData = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "Content-Type": "multipart/form-data",
     Authorization: "Bearer " + accessToken,

@@ -124,6 +124,7 @@ export const ShopHeaderFilter = ({
 
   const handleClearFilter = () => {
     router.push(pathname);
+    localStorage.setItem("searchOptions", ""); 
   };
 
   return (

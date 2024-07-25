@@ -3,6 +3,9 @@ import { fileURLToPath } from "url";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
   sassOptions: {
     includePaths: [
       path.join(path.dirname(fileURLToPath(import.meta.url)), "styles"),

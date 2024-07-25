@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const pokemonApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL }),
   tagTypes: [],
   endpoints: (builder) => ({
     getListProduct: builder.query({
