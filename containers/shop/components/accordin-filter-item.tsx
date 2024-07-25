@@ -36,8 +36,6 @@ export const AccordinFilterItem = (props: IShopFilter) => {
   const [priceFrom, setPriceFrom] = useState<number>(0);
   const [priceTo, setPriceTo] = useState<number>(0);
 
-  /* The `useEffect` hook you provided is responsible for updating the `dataFilter` state based on
-  certain conditions when the `isShow` state changes. Here's a breakdown of what it does: */
   useEffect(() => {
     if (isShow) {
       setDataFilter(tempData);
@@ -79,11 +77,6 @@ export const AccordinFilterItem = (props: IShopFilter) => {
           return params.toString();
         }
       } else {
-        // TODO:
-        /**
-         * CASE 1: if params = '&beauty' => pass
-         * CASE 2: if params =  'beauty' => fail
-         */
         const prevParamsValue = params.get(name);
         const tempValue = prevParamsValue?.includes(`&${value}`);
 
@@ -114,6 +107,9 @@ export const AccordinFilterItem = (props: IShopFilter) => {
    */
   const handlePushParamsToLocalStorage = (name: string, value: string) => {
     localStorage.setItem(`${name}`, value);
+
+    const params = new URLSearchParams(searchParams.toString());
+    localStorage.setItem("searchOptions", params.toString());
   };
 
   /**

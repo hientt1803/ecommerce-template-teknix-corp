@@ -47,3 +47,10 @@ export interface IProduct {
 export interface ICart extends IProduct {
   cartQuantity: number;
 }
+
+export type LoginResponse = {
+  token: string;
+  userEmail: string;
+  userName: string;
+  id: string;
+};

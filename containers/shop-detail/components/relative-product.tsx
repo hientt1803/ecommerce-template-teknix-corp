@@ -1,20 +1,16 @@
 "use client";
 
 import { MainCard } from "@/components/card";
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const RelativeProduct = () => {
-  // hook
-  const { id } = useParams();
-
   // redux
-  const productList = useSelector(
-    (state: RootState) => state.productList.data
+  const productList = useSelector((state: RootState) => state.productList.data);
+  const productDetail = useSelector(
+    (state: RootState) => state.productList.activeProduct
   );
 
   // state
@@ -22,21 +18,19 @@ export const RelativeProduct = () => {
     []
   );
 
-  const detailProduct = PRODUCT_SAMPLE_DATA.find(
-    (product) => product.id == Number(id)
-  );
-
   useEffect(() => {
-    if (!detailProduct) return;
-
     const newData = productList.filter((product) => {
       return product.category
         .toLowerCase()
-        .includes(detailProduct?.category?.toLocaleLowerCase());
+        .includes(
+          productDetail !== null
+            ? productDetail?.category?.toLocaleLowerCase()
+            : ""
+        );
     });
 
     setListrelativeProduct(newData);
-  }, [id, detailProduct]);
+  }, [productDetail, productList]);
 
   return (
     <div>

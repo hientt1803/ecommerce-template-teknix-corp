@@ -14,12 +14,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { ChangeEvent, useState } from "react";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 export const WriteComment = () => {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      <VisuallyHidden.Root>
+        <DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogTitle>
+      </VisuallyHidden.Root>
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full text-lg">
           Write a preview
@@ -51,11 +57,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       <RatingStar maxWidth={100} rating={rating} setRating={setRating} />
       <div className="grid gap-2">
         <Label htmlFor="review-content">What you think</Label>
-        <Textarea
-          id="review-content"
-          value={value}
-          onChange={handleOnChange}
-        />
+        <Textarea id="review-content" value={value} onChange={handleOnChange} />
       </div>
       <Button type="submit">Save review</Button>
     </form>

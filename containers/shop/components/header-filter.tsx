@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { filteredListProduct } from "@/stores/feature/products-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
+import { quickSort } from "@/utils";
 import {
   Grid3X3,
   LayoutGridIcon,
@@ -36,61 +37,81 @@ export const ShopHeaderFilter = ({
 }: IShopHeaderFilter) => {
   // hook
   const router = useRouter();
-  const searchParams = useSearchParams();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   // redux
-  const productList = useSelector(
-    (state: RootState) => state.productList.data
-  );
+  const productList = useSelector((state: RootState) => state.productList.data);
   const dispatch = useDispatch();
 
   // state
-  const [searchText, setSearchText] = useState("");
-  const [sortOption, setSortOption] = useState("");
-  const [showSearchBarMobile, setShowSearchBarMobile] = useState(false);
+  const [searchText, setSearchText] = useState<string>("");
+  const [sortOption, setSortOption] = useState<string>("");
+  const [showSearchBarMobile, setShowSearchBarMobile] =
+    useState<boolean>(false);
 
-  const sortProducts = (products: IProduct[], option: string) => {
-    router.push(`shop/?sort-by=${option}`);
+  const sortProducts = (
+    products: IProduct[],
+    sortOption: string
+  ): IProduct[] => {
+    handlePushSortOptionToParams(sortOption);
 
-    switch (option) {
+    switch (sortOption) {
       case "alphabetical-asc":
-        return [...products].sort((a, b) => a.title.localeCompare(b.title));
+        return quickSort(products, "title", true);
       case "alphabetical-desc":
-        return [...products].sort((a, b) => b.title.localeCompare(a.title));
+        return quickSort(products, "title", false);
       case "price-asc":
-        return [...products].sort((a, b) => a.price - b.price);
+        return quickSort(products, "price", true);
       case "price-desc":
-        return [...products].sort((a, b) => b.price - a.price);
+        return quickSort(products, "price", false);
+      case "rating-asc":
+        return quickSort(products, "rating", true);
+      case "rating-desc":
+        return quickSort(products, "rating", false);
       case "date-asc":
-        return [...products].sort(
-          (a, b) => Number(a.meta.createdAt) - Number(b.meta.createdAt)
-        );
+        return quickSort(products, "createdAt", true);
       case "date-desc":
-        return [...products].sort(
-          (a, b) => Number(b.meta.createdAt) - Number(a.meta.createdAt)
-        );
+        return quickSort(products, "createdAt", false);
       default:
         return products;
     }
   };
 
-  useEffect(() => {
-    const savedSortOption = localStorage.getItem("sortOption");
-    if (savedSortOption) {
-      setSortOption(savedSortOption);
-    }
-  }, []);
+  const handlePushSortOptionToParams = (sortOption: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sort-by", sortOption);
+    router.push(`shop/?${params.toString()}`);
+  };
+
+  // useEffect(() => {
+  // const savedSortOption = localStorage.getItem("sortOption");
+  // if (savedSortOption) {
+  //   setSortOption(savedSortOption);
+  // }
+  // }, []);
 
   useEffect(() => {
-    let filteredProducts = productList.filter((product) =>
-      product.title.toLowerCase().includes(searchText.toLowerCase())
+    let filteredProducts: IProduct[] = [];
+
+    if (searchText !== "") {
+      filteredProducts = productList.filter(
+        (product) =>
+          product.title.toLowerCase().includes(searchText.toLowerCase()) ||
+          product.price.toString().includes(searchText.toLowerCase()) ||
+          product.category.toString().includes(searchText.toLowerCase()) ||
+          product.rating.toString().includes(searchText.toLowerCase()) ||
+          product.description.toString().includes(searchText.toLowerCase())
+      );
+    }
+
+    const newFilteredProduct = sortProducts(
+      searchText !== "" ? filteredProducts : productList,
+      sortOption
     );
 
-    filteredProducts = sortProducts(filteredProducts, sortOption);
-
-    dispatch(filteredListProduct(filteredProducts));
-  }, [searchText, sortOption, productList]);
+    dispatch(filteredListProduct(newFilteredProduct));
+  }, [searchText, sortOption]);
 
   const handleSort = (option: string) => {
     setSortOption(option);
@@ -154,6 +175,12 @@ export const ShopHeaderFilter = ({
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleSort("price-desc")}>
                   Price, high to low
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSort("rating-asc")}>
+                  Rating, low to high
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSort("rating-desc")}>
+                  Rating, high to low
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleSort("date-asc")}>
                   Date, old to new

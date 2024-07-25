@@ -24,8 +24,7 @@ export const globalSlice = createSlice({
       state.loading;
     },
     setLoading: (state, action) => {
-      const { status } = action.payload;
-      state.loading = status;
+      state.loading = action.payload;
     },
   },
 });

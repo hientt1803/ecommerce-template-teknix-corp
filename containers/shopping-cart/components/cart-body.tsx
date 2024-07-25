@@ -10,30 +10,38 @@ import {
   updateCartQuantity,
 } from "@/stores/feature/cart-slice";
 import { RootState } from "@/stores/store";
-import { IProduct } from "@/types";
+import { ICart, IProduct } from "@/types";
 import { Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export const CartBody = () => {
+  const dataFromLocalStorage = localStorage.getItem("cartDetail");
+
   // hook
   const listCart = useSelector((state: RootState) => state.cart.data);
   const dispatch = useDispatch();
 
   // state
+  const [cartData, setCartData] = useState<ICart[]>([]);
+
   useEffect(() => {
-    const dataFromLocalStorage = localStorage.getItem("cartDetail");
     if (dataFromLocalStorage) {
-      const cartData = JSON.parse(dataFromLocalStorage);
+      setCartData(JSON.parse(dataFromLocalStorage));
+    }
+  }, [dataFromLocalStorage]);
+
+  useEffect(() => {
+    if (dataFromLocalStorage) {
       cartData.forEach((item: IProduct) => {
         if (!listCart.some((cartItem) => cartItem.id === item.id)) {
           dispatch(addItemToCart(item));
         }
       });
     }
-  }, [dispatch, listCart]);
+  }, [dataFromLocalStorage]);
 
   const handleUpdateCart = (cartId: number, newQuantity: number) => {
     dispatch(
@@ -62,13 +70,13 @@ export const CartBody = () => {
                 <td className="detail-grid-col-1">PRODUCT</td>
                 <div className="detail-grid-col-2 flex gap-64">
                   <td>QUANTITY</td>
-                  <td>TOTAL</td>
+                  <td >TOTAL</td>
                 </div>
               </tr>
             </thead>
             <hr />
             <tbody>
-              {listCart.map((cart) => {
+              {cartData.map((cart) => {
                 let totalPrice = 0;
                 totalPrice = cart.price * cart.cartQuantity;
 
@@ -78,32 +86,34 @@ export const CartBody = () => {
                     className="detail-grid-layout justify-between gap-10 my-2"
                   >
                     <td className="detail-grid-col-1 flex gap-3">
-                      <Image
-                        src={cart.thumbnail}
-                        alt={cart.title}
-                        width={120}
-                        height={160}
-                        className="bg-[#f5f5f5]"
-                      />
-                      <div className="flex flex-col gap-2">
+                      <Link href={`shop/${cart.id}`}>
+                        <Image
+                          src={cart.thumbnail}
+                          alt={cart.title}
+                          width={120}
+                          height={160}
+                          className="bg-[#f5f5f5]"
+                        />
+                      </Link>
+                      <span className="flex flex-col gap-2">
                         <p className="max-w-80 text-wrap line-clamp-4 text-neutral-800">
                           {cart.title}
                         </p>
                         <p className="font-semibold">{cart.price}$</p>
-                        <p className="text-neutral-600">
+                        <span className="text-neutral-600">
                           <Badge className="mb-2">{cart.category}</Badge>
-                          <div className="flex gap-2">
+                          <span className="flex gap-2">
                             <RatingStar
                               rating={Math.round(cart.rating)}
                               key={cart.id}
-                              disable
+                              readOnly
                             />
                             {cart.rating}
-                          </div>
-                        </p>
-                      </div>
+                          </span>
+                        </span>
+                      </span>
                     </td>
-                    <div className="detail-grid-col-2 flex justify-between">
+                    <span className="detail-grid-col-2 flex justify-between">
                       <td className="flex justify-end items-center gap-8">
                         <GroupInputQuantity
                           quantity={cart.cartQuantity}
@@ -120,7 +130,7 @@ export const CartBody = () => {
                       <td className="flex justify-end items-center font-bold">
                         {totalPrice.toFixed(2).toString()}$
                       </td>
-                    </div>
+                    </span>
                   </tr>
                 );
               })}

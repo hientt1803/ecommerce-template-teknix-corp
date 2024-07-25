@@ -1,14 +1,12 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { RootState } from "@/stores/store";
+import { useSelector } from "react-redux";
 import { CommentItem } from "./comment";
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
 
 export const ListComment = () => {
-  const { id } = useParams();
-
-  const detailProduct = PRODUCT_SAMPLE_DATA.find(
-    (product) => product.id == Number(id)
+  const detailProduct = useSelector(
+    (state: RootState) => state.productList.activeProduct
   );
 
   return (

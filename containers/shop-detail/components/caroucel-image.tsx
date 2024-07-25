@@ -1,22 +1,19 @@
 "use client";
 
-import NotFound from "@/app/not-found";
 import { CaroucelImage } from "@/components/caroucel";
-import { PRODUCT_SAMPLE_DATA } from "@/lib/data";
-import { useParams } from "next/navigation";
+import { RootState } from "@/stores/store";
+import { useSelector } from "react-redux";
 
 const ShopProductCaroucel = () => {
-  const { id } = useParams();
-
-  const detailProduct = PRODUCT_SAMPLE_DATA.find(
-    (product) => product.id == Number(id)
+  const productDetail = useSelector(
+    (state: RootState) => state.productList.activeProduct
   );
 
-  if (!detailProduct) {
-    return <NotFound />;
+  if (!productDetail) {
+    return null;
   }
 
-  const images = detailProduct?.images.map((image) => {
+  const images = productDetail?.images.map((image) => {
     return {
       original: image,
       thumbnail: image,

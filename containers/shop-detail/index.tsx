@@ -1,3 +1,8 @@
+"use client";
+
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
+import { getProductById } from "./api";
 import ShopProductCaroucel from "./components/caroucel-image";
 import { LeftSide } from "./components/comments/left-side";
 import { ListComment } from "./components/comments/list-comment";
@@ -5,6 +10,12 @@ import { ProductInformation } from "./components/product-information";
 import { RelativeProduct } from "./components/relative-product";
 
 export const ShopDetailContainer = () => {
+  const { id } = useParams();
+
+  useEffect(() => {
+    getProductById(Number(id));
+  }, [id]);
+
   return (
     <div className="container">
       {/* <PageBreadcrumb segment="Shop" /> */}

@@ -1,5 +1,4 @@
 import RatingStar from "@/components/rating/rating";
-import RatingDetail from "@/components/rating/rating";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
 
@@ -28,7 +27,7 @@ export const CommentItem = ({ review }: { review: IReview }) => {
       </div>
       <div>
         <div>
-          <RatingStar rating={review.rating} disable={true} />
+          <RatingStar rating={Math.round(review.rating)} readOnly />
         </div>
         <p className="leading-7 line-clamp-3 text-neutral-700">
           {review.comment}

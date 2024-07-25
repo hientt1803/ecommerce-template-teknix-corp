@@ -3,6 +3,7 @@ import { IProduct } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
+import RatingStar from "../rating/rating";
 
 export const MainCard = ({ product }: { product: IProduct }) => {
   /* The `useMemo` hook is being used to memoize the calculation of the `priceAfterDiscount` value in
@@ -32,12 +33,20 @@ export const MainCard = ({ product }: { product: IProduct }) => {
           />
         </Link>
         <div className="grid gap-2">
-          <p className="line-clamp-1 text-sm">{product.title}</p>
-          <div className="flex gap-3">
-            <span className="line-through text-neutral-500 text-sm align-text-bottom">
-              {product.price}$
-            </span>
-            <span className="text-black">{priceAfterDiscount}$</span>
+          <div className="mt-2">
+            <p className="line-clamp-1 text-sm">{product.title}</p>
+            <div className="flex gap-1 flex-wrap">
+              <span className="line-through text-neutral-500 text-sm align-text-bottom">
+                {product.price}$
+              </span>
+              <span className="text-black font-semibold">
+                {priceAfterDiscount}$
+              </span>
+            </div>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <RatingStar rating={Math.round(product.rating)} readOnly/>{" "}
+            <span>{product.rating} of 5</span>
           </div>
         </div>
       </CardContent>
