@@ -31,7 +31,7 @@ export const AuthWrapper = ({ children }: Props) => {
       push("/login");
       dispatch(logout());
     }
-  }, [token, push]);
+  }, [token, push, dispatch]);
 
   if (isLoading) {
     return <div>Loading...</div>;
