@@ -4,7 +4,7 @@ import { GroupInputQuantity } from "@/components/input/group-input-quantity";
 import RatingStar from "@/components/rating/rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { addItemToCart } from "@/stores/feature/cart-slice";
+import { addItemToCart } from "@/stores/feature/client/cart-slice";
 import { RootState } from "@/stores/store";
 import { ICart } from "@/types";
 import { useMemo, useState } from "react";

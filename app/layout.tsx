@@ -5,10 +5,9 @@ import type { Metadata } from "next";
 import { Inter as Cardo } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
-import { GlobalLoading } from "@/components/global";
 import { ThemeProvider } from "@/components/provider/theme-provider";
-import MainLayout from "@/layouts/main-layout";
 import { StoreProvider } from "@/stores/store-provider";
+import { GlobalLoading } from "@/components/global";
 
 const fontSans = Cardo({
   subsets: ["latin"],
@@ -35,9 +34,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <MainLayout>{children}</MainLayout>
-            <ToastContainer />
+            {children}
             <GlobalLoading />
+            <ToastContainer />
           </ThemeProvider>
         </StoreProvider>
       </body>

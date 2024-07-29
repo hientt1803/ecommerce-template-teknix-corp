@@ -12,13 +12,14 @@ import {
 } from "@/components/ui/command";
 import { RootState } from "@/stores/store";
 import { EnvelopeClosedIcon, GearIcon } from "@radix-ui/react-icons";
-import { PersonStandingIcon } from "lucide-react";
+import { PersonStandingIcon, Search } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import RatingStar from "../rating/rating";
+import { Input } from "../ui/input";
 
 export const HeaderCommand = () => {
   // hook
@@ -47,15 +48,14 @@ export const HeaderCommand = () => {
 
   return (
     <>
-      <p
-        className="text-sm text-muted-foreground"
-        onClick={() => setOpen((open) => !open)}
-      >
-        Press{" "}
-        <kbd className="pointer-events-none inline-flex justify-center h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </p>
+      <div className="relative">
+        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input
+          className="pl-8"
+          onClick={() => setOpen((open) => !open)}
+          placeholder="Press ⌘+K to search"
+        />
+      </div>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
@@ -90,7 +90,10 @@ export const HeaderCommand = () => {
                       <Badge variant={"default"}>{product.brand}</Badge>
                     </div>
                     <div>
-                      <RatingStar rating={Math.round(product.rating)} readOnly />
+                      <RatingStar
+                        rating={Math.round(product.rating)}
+                        readOnly
+                      />
                     </div>
                   </div>
                 </div>

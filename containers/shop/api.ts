@@ -1,5 +1,5 @@
-import { setLoading } from "@/stores/feature/global-slice";
-import { setListProduct } from "@/stores/feature/products-slice";
+import { setLoading } from "@/stores/feature/client/global-slice";
+import { setListProduct } from "@/stores/feature/client/products-slice";
 import { store } from "@/stores/store";
 import { toastError } from "@/utils";
 import axios from "axios";

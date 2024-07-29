@@ -14,12 +14,13 @@ export const RelativeProduct = () => {
   );
 
   // state
-  const [listrelativeProduct, setListrelativeProduct] = useState<IProduct[]>(
-    []
-  );
+  const [listrelativeProductByCat, setListrelativeProductByCat] = useState<
+    IProduct[]
+  >([]);
 
   useEffect(() => {
-    const newData = productList.filter((product) => {
+    // List related product by cat
+    const newListByCat = productList.filter((product) => {
       return product.category
         .toLowerCase()
         .includes(
@@ -29,18 +30,20 @@ export const RelativeProduct = () => {
         );
     });
 
-    setListrelativeProduct(newData);
+    setListrelativeProductByCat(newListByCat);
   }, [productDetail, productList]);
 
   return (
     <div>
-      <h2 className="scroll-m-20 text-3xl font-mono font-semibold text-start mt-20">
-        Relative product you should buy
-      </h2>
-      <div className="responsive-grid-column mt-10">
-        {listrelativeProduct.map((product) => (
-          <MainCard product={product} key={product.id} />
-        ))}
+      <div>
+        <h2 className="scroll-m-20 text-3xl font-mono font-semibold text-start mt-20">
+          Relative product you should buy
+        </h2>
+        <div className="responsive-grid-column mt-10">
+          {listrelativeProductByCat.map((product) => (
+            <MainCard product={product} key={product.id} />
+          ))}
+        </div>
       </div>
     </div>
   );

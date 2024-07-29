@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { filteredListProduct } from "@/stores/feature/products-slice";
+import { filteredListProduct } from "@/stores/feature/client/products-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
 import { quickSort } from "@/utils";

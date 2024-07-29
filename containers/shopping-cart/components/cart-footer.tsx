@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/stores/store";
+import Link from "next/link";
 
 export const CartFooter = () => {
   const listCart = useSelector((state: RootState) => state.cart.data);
@@ -30,12 +31,14 @@ export const CartFooter = () => {
             <p className="text-neutral-700 max-w-80 text-end">
               Taxes, Discounts and shipping calculated at checkout
             </p>
-            <Button
-              variant="default"
-              className="p-2 w-[380px] h-10 rounded-sm font-bold text-neutral-300"
-            >
-              Check out
-            </Button>
+            <Link href={"/checkout"}>
+              <Button
+                variant="default"
+                className="p-2 w-[380px] h-10 rounded-sm font-bold text-neutral-300"
+              >
+                Check out
+              </Button>
+            </Link>
           </div>
         </>
       )}

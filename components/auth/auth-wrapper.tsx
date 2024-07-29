@@ -6,7 +6,7 @@ import { getValidAuthTokens } from "@/lib/cookies";
 import { RootState } from "@/stores/store";
 import { useGetAuthDataQuery } from "@/stores/services/auth-api";
 import { useEffect } from "react";
-import { logout } from "@/stores/feature/auth-slice";
+import { logout } from "@/stores/feature/client/auth-slice";
 
 type Props = {
   children?: React.ReactNode;

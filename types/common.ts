@@ -54,3 +54,17 @@ export type LoginResponse = {
   userName: string;
   id: string;
 };
+
+export interface IRole {
+  id: number | string;
+  title: string;
+}
+
+export interface IUser {
+  email: string;
+  fullname?: string;
+  address?: string;
+  image?: string;
+  phone?: number;
+  role: IRole[];
+}

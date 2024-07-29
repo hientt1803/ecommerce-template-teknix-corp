@@ -1,7 +1,8 @@
 import { setCookie, deleteCookie } from "cookies-next";
 import { LoginResponse } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { authApi } from "../services/auth-api";
+import { authApi } from "../../services/auth-api";
+import { TLocalStore } from "@/utils";
 
 const setAuthCookie = (token: string, name: string) => {
   const toBase64 = Buffer.from(token).toString("base64");
@@ -22,6 +23,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    login: (state, action) => {
+      setCookie(TLocalStore.ACCESS_TOKEN, `${action.payload}`);
+    },
     logout: () => {
       deleteCookie("auth_token");
       return {};
@@ -52,5 +56,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { HeaderCommand } from "@/components/command";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -9,16 +10,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Menu as MenuIcon, ShoppingCart } from "lucide-react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { HeaderCommand } from "@/components/command";
-import { HeaderNavigation } from "./header-navigation";
-import { ThemeToggle } from "@/components/provider";
+import { Menu as MenuIcon, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { HeaderNavigation } from "./header-navigation";
+import { UserDropdown } from "./user-dropdown";
+import { useSelector } from "react-redux";
+import { RootState } from "@/stores/store";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
+  const userInfor = useSelector((state: RootState) => {
+    state.user.currentUser;
+  });
+  const isUserNull = userInfor === null || userInfor === undefined;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -50,7 +56,13 @@ export default function MobileNav() {
             <Link href={"/cart"} onClick={() => setOpen(false)}>
               <ShoppingCart className="cursor-pointer" />
             </Link>
-            <ThemeToggle />
+            {isUserNull ? (
+              <Link href={"/auth/login"}>
+                <Button className="font-bold">LOGIN</Button>
+              </Link>
+            ) : (
+              <UserDropdown />
+            )}
           </div>
         </div>
       </SheetContent>

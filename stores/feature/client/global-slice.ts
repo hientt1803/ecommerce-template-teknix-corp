@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface FilterShow {
   isShow: boolean;
   loading: boolean;
+  showDialog: boolean;
 }
 
 const initialState: FilterShow = {
   isShow: false,
   loading: false,
+  showDialog: false,
 };
 
 export const globalSlice = createSlice({
@@ -26,9 +28,21 @@ export const globalSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    showDialog: (state) => {
+      state.loading;
+    },
+    setShowDialog: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { showFilter, hideFilter, getLoading, setLoading } =
-  globalSlice.actions;
+export const {
+  showFilter,
+  hideFilter,
+  getLoading,
+  setLoading,
+  showDialog,
+  setShowDialog,
+} = globalSlice.actions;
 export default globalSlice.reducer;

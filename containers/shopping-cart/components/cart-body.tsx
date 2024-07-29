@@ -9,7 +9,7 @@ import {
   clearCart,
   deleteCart,
   updateCartQuantity,
-} from "@/stores/feature/cart-slice";
+} from "@/stores/feature/client/cart-slice";
 import { RootState } from "@/stores/store";
 import { IProduct } from "@/types";
 import { toastSuccess } from "@/utils";

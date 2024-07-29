@@ -4,8 +4,12 @@ import queryString from "query-string";
 import { TLocalStore } from "./storage/localstorage";
 
 // Get access token
-// const ISSERVER = typeof window === "undefined";
-let accessToken = getCookie(TLocalStore.ACCESS_TOKEN);
+const ISSERVER = typeof window === "undefined";
+let accessToken: any;
+
+if (!ISSERVER) {
+  accessToken = getCookie(TLocalStore.ACCESS_TOKEN);
+}
 // const sessionToken = sessionStorage.getItem(TLocalStore.ACCESS_TOKEN);
 
 // if (ISSERVER) {
@@ -20,7 +24,6 @@ export const axiosClient = axios.create({
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer " + accessToken,
-    "x-api-key": process.env.APP_FAST_API_KEY ?? "",
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
