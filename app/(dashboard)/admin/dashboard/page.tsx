@@ -1,9 +1,7 @@
-import React from 'react'
+import { DashboardContainer } from "@/containers/admin/dashboard";
 
 const DashboardPage = () => {
-  return (
-    <div>DashboardPage</div>
-  )
-}
+  return <DashboardContainer />;
+};
 
-export default DashboardPage
+export default DashboardPage;

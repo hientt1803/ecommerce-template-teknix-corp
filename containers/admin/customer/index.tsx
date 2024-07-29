@@ -1,37 +1,34 @@
 "use client";
 
+import { PageBreadcrumb } from "@/components/breadcumb";
 import { Button } from "@/components/ui/button";
+import { setActiveCustomer } from "@/stores/feature/admin/customer-slice";
 import { setShowDialogUpdate } from "@/stores/feature/admin/global-slice";
-import { setActiveProduct } from "@/stores/feature/admin/products-slice";
 import { RootState } from "@/stores/store";
 import { PlusCircle, ShareIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { MainDataTable } from "./components/data-table";
-import { ProductDetailModal } from "./components/product-modal";
 import { ProductDeleteModal } from "./components/product-delete";
-import { PageBreadcrumb } from "@/components/breadcumb";
+import { CustomerDetailModal } from "./components/product-modal";
 
-export const ProductContainer = () => {
+export const CustomerContainer = () => {
   // redux
-  const activeProduct = useSelector(
-    (state: RootState) => state.productAdmin.activeProduct
-  );
-  const showDialogUpdate = useSelector(
-    (state: RootState) => state.globalAdmin.showDialogUpdate
+  const activeCustomer = useSelector(
+    (state: RootState) => state.customerAdmin.activeCustomer
   );
   const dispatch = useDispatch();
 
   // logic
-  const handleAddProduct = () => {
-    dispatch(setActiveProduct(null));
+  const handleAddCustomer = () => {
+    dispatch(setActiveCustomer(null));
     dispatch(setShowDialogUpdate(true));
   };
 
-  const handleSaveProduct = (product: any) => {
+  const handleSaveCustomer = (product: any) => {
     dispatch(setShowDialogUpdate(true));
   };
 
-  console.log(activeProduct);
+  console.log(activeCustomer);
   return (
     <div className="">
       <div className="flex justify-between flex-wrap">
@@ -46,17 +43,17 @@ export const ProductContainer = () => {
           <Button variant={"outline"}>
             <ShareIcon /> Share
           </Button>
-          <Button variant={"default"} onClick={handleAddProduct}>
-            <PlusCircle /> Add Product
+          <Button variant={"default"} onClick={handleAddCustomer}>
+            <PlusCircle /> Add Customer
           </Button>
         </div>
       </div>
       <MainDataTable />
 
       {/* Modal */}
-      <ProductDetailModal
-        saveProduct={handleSaveProduct}
-        initialData={activeProduct}
+      <CustomerDetailModal
+        saveCustomer={handleSaveCustomer}
+        initialData={activeCustomer}
       />
       <ProductDeleteModal />
     </div>

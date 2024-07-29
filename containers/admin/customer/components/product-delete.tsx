@@ -20,8 +20,8 @@ export const ProductDeleteModal = () => {
   const showModalDelete = useSelector(
     (state: RootState) => state.globalAdmin.showDialogDelete
   );
-  const activeProduct = useSelector(
-    (state: RootState) => state.productAdmin.activeProduct
+  const activeCustomer = useSelector(
+    (state: RootState) => state.customerAdmin.activeCustomer
   );
   const dispath = useDispatch();
 
@@ -29,24 +29,26 @@ export const ProductDeleteModal = () => {
 
   // logic
   const handleDeleteProduct = () => {
-    deleteProduct(activeProduct ? activeProduct.id : 0);
+    deleteProduct(activeCustomer ? activeCustomer.id : 0);
   };
 
-  console.log(activeProduct);
+  console.log(activeCustomer);
 
   return (
     <Dialog open={showModalDelete}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete product</DialogTitle>
+          <DialogTitle>Delete Customer</DialogTitle>
           <DialogDescription>
             This action cannot be revesre, please be ensure you want delete this
-            product!
+            customer!
           </DialogDescription>
         </DialogHeader>
         <div className="leading-7 [&:not(:first-child)]:mt-6 text-center">
-          Are you sure want to delete product{" "}
-          <span className="font-bold">{`"none"`}</span>
+          Are you sure want to delete customer{" "}
+          <span className="font-bold">{`"${
+            activeCustomer?.fullname ? activeCustomer?.fullname : "test name"
+          }"`}</span>
         </div>
         <DialogFooter>
           <div className="flex justify-end gap-4">

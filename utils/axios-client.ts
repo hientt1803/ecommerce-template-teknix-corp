@@ -32,7 +32,7 @@ export const axiosClient = axios.create({
 axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {
-      return response.data;
+      return response;
     }
     return response;
   },
@@ -57,7 +57,7 @@ export const axiosClientFormData = axios.create({
 axiosClientFormData.interceptors.response.use(
   (response) => {
     if (response && response.data) {
-      return response.data;
+      return response;
     }
     return response;
   },

@@ -1,7 +1,8 @@
+import { OrderContainer } from "@/containers/admin/orders";
 import React from "react";
 
 const OrdersPage = () => {
-  return <div>OrdersPage</div>;
+  return <OrderContainer />;
 };
 
 export default OrdersPage;

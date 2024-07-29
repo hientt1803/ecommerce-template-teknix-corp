@@ -13,15 +13,15 @@ import { setShowDialogDelete } from "@/stores/feature/admin/global-slice";
 
 import { RootState } from "@/stores/store";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../api";
+import { deleteOrder } from "../api";
 
-export const ProductDeleteModal = () => {
+export const OrderDeleteModal = () => {
   // redux
   const showModalDelete = useSelector(
     (state: RootState) => state.globalAdmin.showDialogDelete
   );
-  const activeProduct = useSelector(
-    (state: RootState) => state.productAdmin.activeProduct
+  const activeOrder = useSelector(
+    (state: RootState) => state.orderAdmin.activeOrder
   );
   const dispath = useDispatch();
 
@@ -29,23 +29,23 @@ export const ProductDeleteModal = () => {
 
   // logic
   const handleDeleteProduct = () => {
-    deleteProduct(activeProduct ? activeProduct.id : 0);
+    deleteOrder(activeOrder ? activeOrder.id : 0);
   };
 
-  console.log(activeProduct);
+  console.log(activeOrder);
 
   return (
     <Dialog open={showModalDelete}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete product</DialogTitle>
+          <DialogTitle>Delete order</DialogTitle>
           <DialogDescription>
             This action cannot be revesre, please be ensure you want delete this
-            product!
+            order!
           </DialogDescription>
         </DialogHeader>
         <div className="leading-7 [&:not(:first-child)]:mt-6 text-center">
-          Are you sure want to delete product{" "}
+          Are you sure want to delete order{" "}
           <span className="font-bold">{`"none"`}</span>
         </div>
         <DialogFooter>
