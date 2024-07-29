@@ -1,7 +1,15 @@
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { BellIcon, Search } from "lucide-react";
-import React from "react";
+
 import MobileSideBar from "../side-bar/mobile-side-bar";
 
 export const AdminNavbar = () => {
@@ -20,11 +28,24 @@ export const AdminNavbar = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 justify-center items-center">
+        <div className="flex gap-5 justify-center items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <BellIcon />
-          <Button variant="outline" className="w-[200px]">
-            ADMIN INFOR
-          </Button>
         </div>
       </div>
     </div>

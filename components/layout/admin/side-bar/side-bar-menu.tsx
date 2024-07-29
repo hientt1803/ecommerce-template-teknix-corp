@@ -34,7 +34,7 @@ const SIDEBAR_MOCK_DATA = [
   {
     icon: <Users2Icon />,
     title: "Customer",
-    link: "/admin/customer",
+    link: "/admin/customers",
   },
 ];
 

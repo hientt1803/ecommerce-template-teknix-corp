@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+
+// client
 import cartReducer from "./feature/client/cart-slice";
 import filterReducer from "./feature/client/global-slice";
 import productReducer from "./feature/client/products-slice";
@@ -9,6 +11,8 @@ import userReducer from "./feature/client/user-slice";
 // admin
 import productAdminSlice from "./feature/admin/products-slice";
 import globalAdminSlice from "./feature/admin/global-slice";
+import orderAdminSlice from "./feature/admin/order-slice";
+import CustomerAdminSlice from "./feature/admin/customer-slice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +26,8 @@ export const store = configureStore({
     // admin store
     productAdmin: productAdminSlice,
     globalAdmin: globalAdminSlice,
+    orderAdmin: orderAdminSlice,
+    customerAdmin: CustomerAdminSlice,
   },
 });
 

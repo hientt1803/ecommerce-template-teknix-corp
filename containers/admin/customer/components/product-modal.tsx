@@ -16,13 +16,13 @@ import { RootState } from "@/stores/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-interface ProductModalProps {
-  saveProduct: (product: any) => void;
+interface CustomerModalProps {
+  saveCustomer: (product: any) => void;
   initialData?: any;
 }
 
-export const ProductDetailModal: React.FC<ProductModalProps> = ({
-  saveProduct,
+export const CustomerDetailModal: React.FC<CustomerModalProps> = ({
+  saveCustomer,
   initialData,
 }) => {
   // redux
@@ -31,15 +31,15 @@ export const ProductDetailModal: React.FC<ProductModalProps> = ({
   );
   const dispatch = useDispatch();
 
-  const [productData, setProductData] = useState(initialData || {});
+  const [customerData, setCustomerData] = useState(initialData || {});
 
   useEffect(() => {
-    setProductData(initialData || {});
+    setCustomerData(initialData || {});
   }, [initialData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+    setCustomerData({ ...customerData, [name]: value });
   };
 
   const handleCloseModalUpdate = () => {
@@ -47,7 +47,7 @@ export const ProductDetailModal: React.FC<ProductModalProps> = ({
   };
 
   const handleSubmit = () => {
-    saveProduct(productData);
+    saveCustomer(customerData);
     handleCloseModalUpdate();
   };
 
@@ -55,19 +55,19 @@ export const ProductDetailModal: React.FC<ProductModalProps> = ({
     <Dialog open={showModalUpdate}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Save product</DialogTitle>
+          <DialogTitle>Save Customer</DialogTitle>
         </DialogHeader>
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">
-            {initialData ? "Edit Product" : "Add Product"}
+            {initialData ? "Edit Customer" : "Add Customer"}
           </h2>
           <div className="grid w-full items-center gap-1.5 mb-4">
             <Label htmlFor="title">Title</Label>
             <Input
               type="text"
               id="title"
-              placeholder="product title"
-              value={productData.title || ""}
+              placeholder="customer name"
+              value={customerData.title || ""}
               onChange={handleChange}
             />
           </div>
@@ -76,8 +76,8 @@ export const ProductDetailModal: React.FC<ProductModalProps> = ({
             <Input
               type="text"
               id="price"
-              placeholder="product price"
-              value={productData.price || ""}
+              placeholder="phone number"
+              value={customerData.price || ""}
               onChange={handleChange}
             />
           </div>
