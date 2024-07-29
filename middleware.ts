@@ -1,8 +1,8 @@
 import { getCookie } from "cookies-next";
 import { NextResponse } from "next/server";
 import { TLocalStore } from "./utils";
-export function middleware(req) {
-  const accessToken = getCookie(TLocalStore.ACCESS_TOKEN);
+// export function middleware(req) {
+  // const accessToken = getCookie(TLocalStore.ACCESS_TOKEN);
 
   // if (!accessToken) {
   //   if (req.nextUrl.pathname === "/login") {
@@ -14,8 +14,8 @@ export function middleware(req) {
   //   return NextResponse.redirect(loginUrl, req.url);
   // }
 
-  return NextResponse.next();
-}
+//   return NextResponse.next();
+// }
 
 export const config = {
   matcher: "/((?!api|_next/static|_next/image|favicon.ico).*)",
